@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Node.js-day04-模块缓存加载机制</title>
+    <link href="/2021/02/21/Node.js-day04-%E6%A8%A1%E5%9D%97%E7%BC%93%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/"/>
+    <url>/2021/02/21/Node.js-day04-%E6%A8%A1%E5%9D%97%E7%BC%93%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</url>
+    
+    <content type="html"><![CDATA[<p>在Node.js中，模块在第一次加载后会被缓存, 如果每次调用 require(‘foo’) 都解析到同一文件，则返回相同的对象,不会导致模块的代码被执行多次，即为缓存加载机制。</p><p>缓存的作用：不论是 node.js 内置的核心模块，用户自定义的模块还是第三方模块，都有对应的缓存策略，提升模块的加载效率</p><p>说明：文档地址（<a href="http://nodejs.cn/api/modules.html#modules_caching%EF%BC%89">http://nodejs.cn/api/modules.html#modules_caching）</a> </p><h2 id="Node-js-day04"><a href="#Node-js-day04" class="headerlink" title="Node.js-day04"></a>Node.js-day04</h2><h3 id="1-模块的加载机制"><a href="#1-模块的加载机制" class="headerlink" title="1.模块的加载机制"></a>1.模块的加载机制</h3><p>简介：模块在第一次加载后会被缓存, 如果每次调用 require(‘foo’) 都解析到同一文件，则返回相同的对象，不会导致模块的代码被执行多次</p><h4 id="1-1内置-核心-模块的加载机制"><a href="#1-1内置-核心-模块的加载机制" class="headerlink" title="1.1内置(核心)模块的加载机制"></a>1.1内置(核心)模块的加载机制</h4><p>内置模块是由 Node.js 官方提供的模块，内置模块的加载优先级最高。<br>例如，require(‘fs’) 始终返回内置的 fs 模块，即使在 node_modules 目录下有名字相同的包也叫做 fs。</p><h4 id="1-2自定义模块的加载机制"><a href="#1-2自定义模块的加载机制" class="headerlink" title="1.2自定义模块的加载机制"></a>1.2自定义模块的加载机制</h4><p>使用 require() 加载自定义模块时，必须指定以 ./ 或 ../ 开头的路径标识符。在加载自定义模块时，如果没有指定 ./ 或 ../ 这样的路径标识符，则 node 会把它当作内置模块或第三方模块进行加载。<br>同时，在使用 require() 导入自定义模块时，如果省略了文件的扩展名，则 Node.js 会按顺序分别尝试加载以下的文件：<br>① 按照确切的文件名进行加载<br>② 补全 .js 扩展名进行加载<br>③ 补全 .json 扩展名进行加载<br>④ 补全 .node 扩展名进行加载<br>⑤ 加载失败，终端报错</p><h4 id="1-3第三方模块的加载机制"><a href="#1-3第三方模块的加载机制" class="headerlink" title="1.3第三方模块的加载机制"></a>1.3第三方模块的加载机制</h4><p>如果传递给 require() 的模块标识符不是一个内置模块，也没有以 ‘./’ 或 ‘../’ 开头，则 Node.js 会从当前模块的父<br>目录开始，尝试从 /node_modules 文件夹中加载第三方模块。<br>如果没有找到对应的第三方模块，则移动到再上一层父目录中，进行加载，直到文件系统的根目录。<br>例如，假设在 ‘C:\Users\itheima\project\foo.js’ 文件里调用了 require(‘tools’)，则 Node.js 会按以下顺序查找：<br>① C:\Users\itheima\project\node_modules\tools<br>② C:\Users\itheima\node_modules\tools<br>③ C:\Users\node_modules\tools<br>④ C:\node_modules\tools</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Node笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+      <tag>Node.js</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Node.js-day01-初见概念、fs读写模块、path模块</title>
     <link href="/2021/02/21/Node.js-day01-%E5%88%9D%E8%A7%81%E6%A6%82%E5%BF%B5%E3%80%81fs%E8%AF%BB%E5%86%99%E6%A8%A1%E5%9D%97%E3%80%81path%E6%A8%A1%E5%9D%97/"/>
     <url>/2021/02/21/Node.js-day01-%E5%88%9D%E8%A7%81%E6%A6%82%E5%BF%B5%E3%80%81fs%E8%AF%BB%E5%86%99%E6%A8%A1%E5%9D%97%E3%80%81path%E6%A8%A1%E5%9D%97/</url>
@@ -23,6 +50,35 @@
       <tag>JavaScript</tag>
       
       <tag>Node.js</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Node.js-nmp包管理工具常用命令</title>
+    <link href="/2021/02/21/Node.js-nmp%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <url>/2021/02/21/Node.js-nmp%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    
+    <content type="html"><![CDATA[<p>国外有一家 IT 公司，叫做 npm, Inc. 这家公司旗下有一个非常著名的网站： <a href="https://www.npmjs.com/">https://www.npmjs.com/</a> ，它是全球最大的包共享平台，你可以从这个网站上搜索到任何你需要的包，只要你有足够的耐心！</p><p>到目前位置，全球约 1100 多万的开发人员，通过这个包共享平台，开发并共享了超过 120 多万个包 供我们使用。</p><p>npm, Inc. 公司提供了一个地址为 <a href="https://registry.npmjs.org/">https://registry.npmjs.org/</a> 的服务器，来对外共享所有的包，我们可以从这个服务器上下载自己所需要的包。</p><ul><li>从 <a href="https://www.npmjs.com/">https://www.npmjs.com/</a> 网站上搜索自己所需要的包</li><li>从 <a href="https://registry.npmjs.org/">https://registry.npmjs.org/</a> 服务器上下载自己需要的包</li></ul><h2 id="Node-js-nmp包管理工具常用命令"><a href="#Node-js-nmp包管理工具常用命令" class="headerlink" title="Node.js-nmp包管理工具常用命令"></a>Node.js-nmp包管理工具常用命令</h2><table><thead><tr><th>终端npm命令</th><th align="left">作用</th></tr></thead><tbody><tr><td>npm -v</td><td align="left">查看在自己电脑本机的 npm</td></tr><tr><td>npm i 包名称</td><td align="left">下载一个指定的包</td></tr><tr><td>npm view 包名称</td><td align="left">查看一个指定包详情信息</td></tr><tr><td>npm i 包名称@版本号</td><td align="left">下载指定版本的包</td></tr><tr><td>npm i</td><td align="left">根据 package.json 文件自动下载所有包</td></tr><tr><td>npm init -y</td><td align="left">快速创建包管理配置文件(package.json)</td></tr><tr><td>npm uninstall 包名称</td><td align="left">卸载指定的包</td></tr><tr><td>npm i –save-dev 包名称@版本号</td><td align="left">安装开发测试阶段用到的包</td></tr><tr><td>npm i -D 包名称@版本号</td><td align="left">同上</td></tr><tr><td>npm i -g cnpm</td><td align="left">借助cnpm这个包，提供了下载命令 cnpm i 包名称</td></tr><tr><td>npm i -g nrm==&gt;nrm ls</td><td align="left">安装nrm包，查看所有的可用镜像源</td></tr><tr><td>nrm use taobao</td><td align="left">将下载包的镜像源切换至taobao镜像</td></tr><tr><td>npm i -g i5ting_toc</td><td align="left">安装一个能将md文档转成html文件的工具包</td></tr><tr><td>i5ting_toc -f ./test.md -o</td><td align="left">把test.me文件转为html 并用浏览器打开预览(-o)</td></tr><tr><td>npm i -D 包名称</td><td align="left">开发测试环境用到的包</td></tr><tr><td>npm i -g 包名称</td><td align="left">全局包的安装命令</td></tr><tr><td>npm uninstall -g 包名称</td><td align="left">卸载全局包</td></tr><tr><td>npm login</td><td align="left">在终端登录npm（需依次输入用户名 密码 游戏）</td></tr><tr><td>npm publish</td><td align="left">上传发布包至官网</td></tr><tr><td>npm unpublish 包名称 –force</td><td align="left">强制删除已经发布的包</td></tr></tbody></table>]]></content>
+    
+    
+    <categories>
+      
+      <category>Node笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+      <tag>Node.js</tag>
+      
+      <tag>npm</tag>
       
     </tags>
     
