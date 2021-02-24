@@ -4,6 +4,46 @@
   
   
   <entry>
+    <title>MySQL数据库管理工具的语法</title>
+    <link href="/2021/02/24/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E8%AF%AD%E6%B3%95/"/>
+    <url>/2021/02/24/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E8%AF%AD%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<p>数据库（database）是用来组织、存储和管理数据的仓库。数据库的类型有很多种，本节介绍了MySQL 数据库（目前使用<strong>最广泛、流行度最高</strong>的<strong>开源免费</strong>数据库；Community + Enterprise）的语法，其中SQL(Structured Query Language)，即结构化的查询语言, 专门用来访问和处理数据库的编程语言。</p><h2 id="MySQL数据库管理工具的语法"><a href="#MySQL数据库管理工具的语法" class="headerlink" title="MySQL数据库管理工具的语法"></a>MySQL数据库管理工具的语法</h2><h3 id="1-查询数据"><a href="#1-查询数据" class="headerlink" title="1.查询数据"></a>1.查询数据</h3><h4 id="1-1从指定表中查找所有列的数据-SELECT-FROM-表名称"><a href="#1-1从指定表中查找所有列的数据-SELECT-FROM-表名称" class="headerlink" title="1.1从指定表中查找所有列的数据: SELECT * FROM 表名称"></a>1.1从指定表中查找所有列的数据: <code>SELECT * FROM 表名称</code></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">-- 从 users 表中查找所有列数据<br>-- select * <span class="hljs-keyword">from</span> users<br></code></pre></td></tr></table></figure><h4 id="1-2从指定表中查找指定列的数据-SELECT-列名称-FROM-表名称"><a href="#1-2从指定表中查找指定列的数据-SELECT-列名称-FROM-表名称" class="headerlink" title="1.2从指定表中查找指定列的数据:SELECT 列名称 FROM 表名称"></a>1.2从指定表中查找指定列的数据:<code>SELECT 列名称 FROM 表名称</code></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">-- 从 users 表中查找 username 和 password 列数据<br>-- select username,password <span class="hljs-keyword">from</span> users<br></code></pre></td></tr></table></figure><h3 id="2-插入数据-insert"><a href="#2-插入数据-insert" class="headerlink" title="2.插入数据 insert"></a>2.插入数据 insert</h3><p>向指定的数据表中插入一条数据: <code>INSERT INTO 表名称(列1, 列2, ...) VALUES(值1, 值2, ...)</code></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">-- 向 users 表中插入一条 username 为 Tomcat，password 为 <span class="hljs-number">920813</span> 的数据<br>-- insert into users (username,password) values(<span class="hljs-string">&#x27;Tomcat&#x27;</span>,<span class="hljs-string">&#x27;920813&#x27;</span>)<br></code></pre></td></tr></table></figure><p><strong>注意:</strong> 多个列和值之间使用逗号隔开, 列和值的顺序要保持一致</p><h3 id="3-更新数据-update"><a href="#3-更新数据-update" class="headerlink" title="3.更新数据 update"></a>3.更新数据 update</h3><p>更新数据表中的某一列或多列数据: <code>UPDATE 表名称 SET 列1=值1, 列2=值2 WHERE 列名称=值;</code></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Js">-- 更新 users 表中 username 为 ls 的 password 为 <span class="hljs-number">111111</span><br>-- update users set password=<span class="hljs-string">&#x27;111111&#x27;</span> where username=<span class="hljs-string">&#x27;ls&#x27;</span>;<br><br>-- 同时更新 id 为 <span class="hljs-number">3</span> 这条数据的 password 为 <span class="hljs-number">111111</span>，status 为 <span class="hljs-number">1</span><br>-- update users set password=<span class="hljs-string">&#x27;111111&#x27;</span>,status=<span class="hljs-number">1</span> where id=<span class="hljs-number">3</span>;<br></code></pre></td></tr></table></figure><p><strong>注意:</strong> SET 后多列数据更新使用逗号隔开, WHERE 后面跟的条件不能省略</p><h3 id="4-删除数据-delete"><a href="#4-删除数据-delete" class="headerlink" title="4.删除数据 delete"></a>4.删除数据 delete</h3><p>删除数据表中的某一行或多行数据： <code>DELETE FROM 表名称 WHERE 列名称=值;</code></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">-- 删除 id 为 <span class="hljs-number">3</span> 的用户数据<br>-- <span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> users where id=<span class="hljs-number">3</span>;<br></code></pre></td></tr></table></figure><h3 id="5-where-子句的作用"><a href="#5-where-子句的作用" class="headerlink" title="5.where 子句的作用"></a>5.where 子句的作用</h3><p>如果需要有条件的从表中选取数据, 可以使用 WHERE 子句添加到 SQL 语句的末尾</p><p>例如:<code>SELECT * FROM 表名称 WHERE 列名称 运算符 值</code></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">-- 查找 users 中 id 大于 <span class="hljs-number">2</span> 的数据<br>-- select * <span class="hljs-keyword">from</span> users where id&gt;<span class="hljs-number">2</span>;<br><br>-- 查找 users 中 password 含 <span class="hljs-number">3</span> 的数据<br>-- select * <span class="hljs-keyword">from</span> users where password like <span class="hljs-string">&#x27;%3%&#x27;</span>;<br><br>-- 查找 users 中 status 为 <span class="hljs-number">0</span> 的数据<br>-- select * <span class="hljs-keyword">from</span> users where status=<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure><h4 id="5-1-常见的运算符："><a href="#5-1-常见的运算符：" class="headerlink" title="5.1 常见的运算符："></a>5.1 常见的运算符：</h4><ol><li><blockquote><p>和 &gt;=</p></blockquote></li></ol><p>(2) &lt; 和 &lt;=</p><p>(3) != 或 &lt;&gt;</p><p>(4) =</p><p>(5) BETWEEN</p><p>(6) LIKE</p><p>AND 和 OR 运算符</p><p>可以在 WHERE 子句中把多个条件结合起来, AND 表示并且, OR 表示或者的意思</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">-- 使用 and 查找 status=<span class="hljs-number">0</span> 并且 id&gt;<span class="hljs-number">2</span>  的数据<br>-- select * <span class="hljs-keyword">from</span> users where status=<span class="hljs-number">0</span> and id&gt;<span class="hljs-number">2</span><br><br>-- 使用 or 查找 status=<span class="hljs-number">0</span> 或者 id&gt;<span class="hljs-number">2</span>  的数据<br>-- select * <span class="hljs-keyword">from</span> users where status=<span class="hljs-number">0</span> or id&gt;<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure><h3 id="6-order-by-子句的作用"><a href="#6-order-by-子句的作用" class="headerlink" title="6.order by 子句的作用"></a>6.order by 子句的作用</h3><h4 id="6-1使用-ORDER-BY-子句对结果进行排序"><a href="#6-1使用-ORDER-BY-子句对结果进行排序" class="headerlink" title="6.1使用 ORDER BY 子句对结果进行排序"></a>6.1使用 ORDER BY 子句对结果进行排序</h4><p>默认的排序方式为升序 ASC, 如果使用降序可以添加 DESC 关键字</p><p><code>SELECT * FROM users ORDER BY status DESC;</code></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js">-- 根据 status 升序排列<br>-- select * <span class="hljs-keyword">from</span> users order by status asc<br><br>-- 查找 id&gt;<span class="hljs-number">1</span> 且根据 id 降序排列<br>-- select * <span class="hljs-keyword">from</span> users where id&gt;<span class="hljs-number">1</span> order by id desc<br></code></pre></td></tr></table></figure><h4 id="6-2多重排序规则"><a href="#6-2多重排序规则" class="headerlink" title="6.2多重排序规则"></a>6.2多重排序规则</h4><p><code>SELECT 列名称 FROM 表名称 ORDER BY 列名称 [排序规则], 列名称 [排序规则]</code></p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">-- status 升序，username 降序<br>-- select * <span class="hljs-keyword">from</span> users order by status asc,username desc<br></code></pre></td></tr></table></figure><p><strong>注意</strong>：同时使用 order by 和 where子句时, 应该让 order by 位于 where 之后, 否则将会产生错误</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Node笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>MySQL</tag>
+      
+      <tag>数据库</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title></title>
+    <link href="/2021/02/22/day50-Node-02-http%E6%A8%A1%E5%9D%97%E3%80%81%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81module%E5%92%8Cexports%E3%80%81CommonJS%E8%A7%84%E8%8C%83/"/>
+    <url>/2021/02/22/day50-Node-02-http%E6%A8%A1%E5%9D%97%E3%80%81%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%81%E6%A8%A1%E5%9D%97%E5%8C%96%E3%80%81module%E5%92%8Cexports%E3%80%81CommonJS%E8%A7%84%E8%8C%83/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Node.js-day04-模块缓存加载机制</title>
     <link href="/2021/02/21/Node.js-day04-%E6%A8%A1%E5%9D%97%E7%BC%93%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/"/>
     <url>/2021/02/21/Node.js-day04-%E6%A8%A1%E5%9D%97%E7%BC%93%E5%AD%98%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</url>
